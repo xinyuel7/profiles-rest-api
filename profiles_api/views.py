@@ -1,10 +1,14 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-#when rest framework call the apiview, return response object
 from rest_framework import status
-from profiles_api import serializers #tell our API view what data to expect when making posts put and patch request
 from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
 
+from profiles_api import serializers #tell our API view what data to expect when making posts put and patch request
+from profiles_api import models
+from profiles_api import permissions
+
+#when rest framework call the apiview, return response object
 class HelloApiView(APIView): #define the application logic for our endpoint(URL)
     """Test API view"""
     serializer_class = serializers.HelloSerializer
@@ -96,3 +100,13 @@ class HelloViewSet(viewsets.ViewSet):
         """Handle removing an object"""
 
         return Response({'http_method': 'DELETE'})
+
+
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """Handle creating, creating and updating profiles"""
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.UserProfile.objects.all()
+
+    authentication_classes = (TokenAuthentication,) #tuple
+    permission_classes = (permissions.UpdateOwnProfile,)
