@@ -12,7 +12,7 @@ class UserProfileManager(BaseUserManager):
             raise ValueError('User must have an email address') #ensure that a proper email address has been passed if __name__ == '__main__':
         #standardize the second half of email address(case insensitive)
         email = self.normalize_email(email)
-        user = self.model(email=email, name=name)   #create a new users
+        user = self.model(email=email, name=name,)   #create a new users
         user.set_password(password) #set_password function ensures that password is encrypted(converted into a hash and never stored as plain text in the database)
         user.save(using=self._db) #can support multiple databases
 
