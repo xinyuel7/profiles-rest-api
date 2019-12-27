@@ -8,5 +8,6 @@ router.register('profile', views.UserProfileViewSet) #queryset don't need a base
 
 urlpatterns = [
     path('Hello-view/', views.HelloApiView.as_view()),
+    path('login/', views.UserLoginApiView.as_view()),
     path('', include(router.urls)),
 ]
